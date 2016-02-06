@@ -16,47 +16,23 @@
 
 get_header(); ?>
 
-<?php get_template_part('template-parts/sidebar') ?>
 
-<div class="posts">
-  <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-    <?php get_template_part('template-parts/excerpts') ?>
-  <?php endwhile; else : ?>
-    <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
-  <?php endif; ?>
+<div class="content">
+  <?php get_sidebar() ?>
+
+  <div class="posts">
+    <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+      <?php get_template_part('template-parts/excerpts') ?>
+    <?php endwhile; else : ?>
+      <p><?php _e( 'Nothing to see here... Move along' ); ?></p>
+    <?php endif; ?>
+  </div>
 
   <hr>
 
-  <div class="portfolio">
-    <h2>Portfolio</h2> 
-    <?php $portfolio = new WP_Query(['post_type' => 'portfolio']);
-    while($portfolio->have_posts()): $portfolio->the_post(); ?>
+  <?php get_template_part('template-parts/softwareProjects') ?>
 
-    <div class="small-card">
-      <a href="<?php the_permalink() ?>"><h3> <?php the_title(); ?></h3></a>
-      <p> <?php the_author_posts_link(); echo "  " ; the_time("Y-M-D H:i"); ?></p>
-      <p>
-      <?php 
-        if ( $terms = get_the_terms (get_the_ID(), 'tech') ){
-          $technologies = [];
-          
-          foreach ($terms as $term){
-            $technologies[] = $term->name;
-          }
-
-          echo implode(', ', $technologies);
-        } else {
-          echo 'No tech';
-        }
-      ?>
-      </p>
-    </div>
-
-    <?php endwhile; ?>
-  </div>
+  <div class="clear"></div>
 </div>
-
-<?php get_template_part('template-parts/sidebar-second') ?>
-
-<?php get_template_part('template-parts/footer') ?>
+<?php get_footer(); ?>
 

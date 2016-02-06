@@ -10,10 +10,11 @@
 	<?php wp_head(); ?>
 </head>
 <body>
-<div>
+<div class="wrapper">
+  <div class="header">
 
-  <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-    <h1> <?php bloginfo( 'name' ) ?> </h1> 
-  </a>
+    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+      <h1> <?php bloginfo( 'name' ) ?> </h1> 
+    </a>
 
-</div>
+  </div>

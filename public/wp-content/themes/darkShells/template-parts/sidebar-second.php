@@ -7,5 +7,3 @@
 ?>
 
 </div>
-
-<div class="clearBoth"> </div>
