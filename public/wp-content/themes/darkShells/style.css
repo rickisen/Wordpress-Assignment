@@ -1,0 +1,61 @@
+/*
+Theme Name: darkShells
+Theme URI: https://www.reddit.com/u/rickisen
+Author: rickisen 
+Author URI: darkshells.mooo.com
+Description: terminal/code-like theme
+Version: 1.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: black, blue, gray, red, white, yellow, dark, light, one-column, two-columns, right-sidebar, fixed-layout, responsive-layout, accessibility-ready, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, microformats, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready
+Text Domain: darkShells
+*/
+
+body {
+  background-color: #222;
+  color: #ddd;
+}
+
+a {
+  color:#987;
+}
+
+.left-sidebar {
+  padding-right:10px;
+  padding-left:10px;
+  width:15%;
+  float:left;
+  box-sizing: border-box;
+}
+
+.right-sidebar {
+  padding-right:10px;
+  padding-left:10px;
+  width:15%;
+  float:right;
+  box-sizing: border-box;
+}
+
+.small-card {
+  padding:10px;
+  width:200px;
+  max-height:200px;
+  box-sizing: border-box;
+  display: inline-block;
+  border-left:1px dashed #444;
+}
+
+.small-card:last-child{
+  border-right:1px dashed #444;
+}
+
+.posts,.portfolio-item {
+  width:70%;
+  padding:10px;
+  box-sizing: border-box;
+  display: inline-block;
+  border-right: 1px solid grey;
+  border-left: 1px solid grey;
+}
+
+.clearBoth {clear:both;}
