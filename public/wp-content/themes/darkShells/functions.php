@@ -1,7 +1,7 @@
 <?php 
 
 function loadScripts(){
-  wp_enqueue_style( 'rickizen-style', get_stylesheet_uri() );
+  wp_enqueue_style( 'darkshells-style', get_stylesheet_uri() );
 }
 add_action('wp_enqueue_scripts','loadScripts');
 
@@ -17,33 +17,29 @@ function hej(){
 }
 add_action('widgets_init','hej');
 
-function post_type_portfolio_init(){
 
-$labels = array(
-        'name'                  => 'Portfolio',
-        'singular_name'         => 'Portfolio',
-        'menu_name'             => 'Portfolio',
-        'name_admin_bar'        => 'Portfolio',
-        'add_new'               => 'Portfolio',
-        'add_new_item'          => 'Portfolio',
-        'new_item'              => 'Portfolio',
-        'edit_item'             => 'Portfolio',
-        'view_item'             => 'Portfolio',
-        'all_items'             => 'Portfolio',
-        'search_items'          => 'Portfolio',
-        'parent_item_colon'     => 'Portfolio',
-        'not_found'             => 'Portfolio',
-        'not_found_in_trash'    => 'Portfolio',
-        'featured_image'        => 'Portfolio',
-        'set_featured_image'    => 'Portfolio',
-        'remove_featured_image' => 'Portfolio',
-        'use_featured_image'    => 'Portfolio',
-        'archives'              => 'Portfolio',
-        'insert_into_item'      => 'Portfolio',
-        'uploaded_to_this_item' => 'Portfolio',
-        'filter_items_list'     => 'Portfolio',
-        'items_list_navigation' => 'Portfolio',
-        'items_list'            => 'Portfolio'
+// Custom Post Types  ================================================================================
+
+// taxonomy for softwareProjects 
+function create_softwareProject_taxonomy(){
+   register_taxonomy(
+    'tech',
+    'softwareProject',
+    array(
+      'label' => 'Tech',
+      'rewrite' => array( 'slug' => 'tech' ),
+      'hierarchical' => true,
+    )
+  ); 
+}
+add_action('init', 'create_softwareProject_taxonomy');
+
+
+// post type for software projects on github
+function post_type_softwareProject_init(){
+  $labels = array(
+        'name'                  => 'Software Projects',
+        'singular_name'         => 'Software Project',
     );
  
     $args = array(
@@ -53,59 +49,46 @@ $labels = array(
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'Portfolio' ),
+        'rewrite'            => array( 'slug' => 'Software Project' ),
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
-        'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments')
+        'taxonomies'           => array('tech'),
+        'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt')
     );
 
-  register_post_type('portfolio',$args);
+  register_post_type('softwareProject', $args);
 }
-add_action('init','post_type_portfolio_init');
+add_action('init','post_type_softwareProject_init');
 
-/*function rickizen_customize_register($wp_customize){
+// Admin Panel ================================================================================
 
-  $wp_customize->add_setting('rickizen_background',[ 'default' => '#222', 'transport' => 'refresh']);
-  $wp_customize->add_section('rickizen_colors', ['title'=>'Theme Colors', 'priority'=>10]);
+function customize_colors_register( $wp_customize ){
+
+  $wp_customize->add_section('colors', ['title' => "Theme colors", 'priority' => 10]);
+
+  $wp_customize->add_setting('font_color', ['default' => "#ddd", 'transport' => 'refresh']);
   $wp_customize->add_control(
-    new WP_Customize_Color_Control($wp_customize, 'background_color', [
-      'label'   => 'Background',
-      'section' => 'rickizen_colors',
-      'setting' => 'rickizen_background'
-    ])
-  );
+      new WP_Customize_Color_Control($wp_customize, 'font_color', [
+          'label' => "Font Color",
+          'section' => 'colors',
+          'setting' => 'font_color'
+        ])
+    );
 
-
+  $wp_customize->add_setting('background', ['default' => "#222", 'transport' => 'refresh']);
+  $wp_customize->add_control(
+      new WP_Customize_Color_Control($wp_customize, 'background', [
+          'label' => "Background",
+          'section' => 'colors',
+          'setting' => 'background'
+        ])
+    );
 }
-add_action('customize_register','rickizen_customize_register');
- */
-function tobiaslanden_customize_register( $wp_customize ){
+add_action('customize_register','customize_colors_register');
 
-$wp_customize->add_section('tobiaslanden_colors', ['title' => "Theme colors", 'priority' => 10]);
-
-$wp_customize->add_setting('font_color', ['default' => "#fff", 'transport' => 'refresh']);
-$wp_customize->add_control(
-		new WP_Customize_Color_Control($wp_customize, 'font_color', [
-				'label' => "Font Color",
-				'section' => 'tobiaslanden_colors',
-				'setting' => 'font_color'
-			])
-	);
-
-$wp_customize->add_setting('background', ['default' => "#222", 'transport' => 'refresh']);
-$wp_customize->add_control(
-		new WP_Customize_Color_Control($wp_customize, 'background', [
-				'label' => "Background",
-				'section' => 'tobiaslanden_colors',
-				'setting' => 'background'
-			])
-	);
-}
-add_action('customize_register','tobiaslanden_customize_register');
-
-function rickizen_cutomize_css(){
+function darkshells_cutomize_css(){
   ?>
     <style type="text/css">
        body { 
@@ -115,18 +98,6 @@ function rickizen_cutomize_css(){
     </style>
   <?php
 }
-add_action('wp_head', 'rickizen_cutomize_css');
+add_action('wp_head', 'darkshells_cutomize_css');
 
 
-function create_portfolio_taxonomy(){
-   register_taxonomy(
-    'tech',
-    'portfolio',
-    array(
-      'label' => 'Tech',
-      'rewrite' => array( 'slug' => 'tech' ),
-      'hierarchical' => true,
-    )
-  ); 
-}
-add_action('init', 'create_portfolio_taxonomy');

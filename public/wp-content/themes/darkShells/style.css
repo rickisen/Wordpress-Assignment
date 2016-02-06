@@ -23,7 +23,8 @@ a {
 .left-sidebar {
   padding-right:10px;
   padding-left:10px;
-  width:15%;
+  max-width:20%;
+  min-width:12em;
   float:left;
   box-sizing: border-box;
 }
@@ -31,7 +32,8 @@ a {
 .right-sidebar {
   padding-right:10px;
   padding-left:10px;
-  width:15%;
+  max-width:15%;
+  min-width:20em;
   float:right;
   box-sizing: border-box;
 }
@@ -50,7 +52,8 @@ a {
 }
 
 .posts,.portfolio-item {
-  width:70%;
+  max-width:50%;
+  min-width:20%;
   padding:10px;
   box-sizing: border-box;
   display: inline-block;
