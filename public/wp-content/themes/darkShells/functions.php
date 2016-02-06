@@ -20,21 +20,6 @@ add_action('widgets_init','hej');
 
 // Custom Post Types  ================================================================================
 
-// taxonomy for softwareProjects 
-function create_softwareProject_taxonomy(){
-   register_taxonomy(
-    'tech',
-    'softwareProject',
-    array(
-      'label' => 'Tech',
-      'rewrite' => array( 'slug' => 'tech' ),
-      'hierarchical' => true,
-    )
-  ); 
-}
-add_action('init', 'create_softwareProject_taxonomy');
-
-
 // post type for software projects on github
 function post_type_softwareProject_init(){
   $labels = array(
@@ -61,6 +46,21 @@ function post_type_softwareProject_init(){
   register_post_type('softwareProject', $args);
 }
 add_action('init','post_type_softwareProject_init');
+
+// taxonomy for softwareProjects 
+function create_softwareProject_taxonomy(){
+   register_taxonomy(
+    'tech',
+    'softwareProject',
+    array(
+      'label' => 'Tech',
+      'rewrite' => array( 'slug' => 'tech' ),
+      'hierarchical' => true,
+    )
+  ); 
+}
+add_action('init', 'create_softwareProject_taxonomy');
+
 
 // Admin Panel ================================================================================
 
