@@ -1,10 +1,14 @@
 <?php 
 
+// Visuals and content ================================================================================
+
+// load the CSS into wp
 function loadScripts(){
   wp_enqueue_style( 'darkshells-style', get_stylesheet_uri() );
 }
 add_action('wp_enqueue_scripts','loadScripts');
 
+// register sidebar
 function hej(){
   register_sidebar([
     'name' => 'Second Sidebar',
@@ -20,7 +24,7 @@ add_action('widgets_init','hej');
 
 // Custom Post Types  ================================================================================
 
-// post type for software projects on github
+// post type for software projects hosted on github
 function post_type_softwareProject_init(){
   $labels = array(
         'name'                  => 'Software Projects',
@@ -39,13 +43,125 @@ function post_type_softwareProject_init(){
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
-        'taxonomies'           => array('tech'),
+        'taxonomies'         => array('tech'),
         'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt')
     );
 
   register_post_type('softwareProject', $args);
 }
 add_action('init','post_type_softwareProject_init');
+
+// post type for Terminal Themes
+function post_type_TerminalTheme_init(){
+  $labels = array(
+        'name'                  => 'Terminal Themes',
+        'singular_name'         => 'Terminal Theme',
+    );
+ 
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array( 'slug' => 'TerminalTheme' ),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'taxonomies'         => array( 'Terminal', 'Color', 'Recomendation'),
+        'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments')
+    );
+
+  register_post_type('TerminalTheme', $args);
+}
+add_action('init','post_type_CliReview_init');
+
+// post type for CLI-reviews
+function post_type_CliReview_init(){
+  $labels = array(
+        'name'                  => 'CLI Reviews',
+        'singular_name'         => 'CLI Review',
+    );
+ 
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array( 'slug' => 'CliReview' ),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'taxonomies'         => array('ProgramType', 'Recomendation'),
+        'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments')
+    );
+
+  register_post_type('CliReview', $args);
+}
+add_action('init','post_type_CliReview_init');
+
+// Taxonomies ------------------------------------------------------------
+
+// Color-Taxonomy, used for TerminalThemes 
+function create_Color_taxonomy(){
+   register_taxonomy(
+    'Color',
+    'TerminalTheme',
+    array(
+      'label'        => 'Color',
+      'rewrite'      => array( 'slug' => 'Color' ),
+      'hierarchical' => false,
+    )
+  ); 
+}
+add_action('init', 'create_Color_taxonomy');
+
+// Terminal-Taxonomy, used for TerminalThemes 
+function create_Terminal_taxonomy(){
+   register_taxonomy(
+    'Terminal',
+    'TerminalTheme',
+    array(
+      'label'        => 'Terminal Emulator',
+      'rewrite'      => array( 'slug' => 'Terminal' ),
+      'hierarchical' => false,
+    )
+  ); 
+}
+add_action('init', 'create_Terminal_taxonomy');
+
+// ProgramType-Taxonomy, used for CliReviews 
+function create_Programtype_taxonomy(){
+   register_taxonomy(
+    'ProgramType',
+    'CliReview',
+    array(
+      'label'        => 'Program Type',
+      'rewrite'      => array( 'slug' => 'ProgramType' ),
+      'hierarchical' => true
+    )
+  ); 
+}
+add_action('init', 'create_Programtype_taxonomy');
+
+// Recomendation-Taxonomy, used for CliReview and TerminalTheme
+function create_recommendation_taxonomy(){
+   register_taxonomy(
+    'Recomendation',
+    array('CliReview', 'TerminalTheme'),
+    array(
+      'label'        => 'Recomendation',
+      'rewrite'      => array( 'slug' => 'recommendation' ),
+      'hierarchical' => false,
+    )
+  ); 
+}
+add_action('init', 'create_recommendation_taxonomy');
 
 // taxonomy for softwareProjects 
 function create_softwareProject_taxonomy(){
