@@ -1,1 +1,1 @@
-{"virtualbox":{"/var/www":{"mount_options":["dmode=777","fmode=666"],"guestpath":"/var/www","hostpath":"/home/rickisen/programming/FED15/dynweb/wordpress","disabled":false}}}
+{"virtualbox":{"/var/www":{"mount_options":["dmode=777","fmode=666"],"guestpath":"/var/www","hostpath":"/home/rickard/programming/FED15/dynweb/wordpress","disabled":false,"__vagrantfile":true}}}
