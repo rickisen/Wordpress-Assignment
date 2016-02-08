@@ -9,17 +9,23 @@ function loadScripts(){
 add_action('wp_enqueue_scripts','loadScripts');
 
 // register sidebar
-function hej(){
+function add_widget_areas(){
   register_sidebar([
-    'name' => 'Second Sidebar',
-    'id' => 'sidebar-2'
+    'name' => 'Header Widget Area',
+    'id' => 'header-widgets'
   ]);
   register_sidebar([
-    'name' => 'Sidebar',
-    'id' => 'sidebar-1'
+    'name' => 'Left Sidebar',
+    'id' => 'sidebar-left'
   ]);
 }
-add_action('widgets_init','hej');
+add_action('widgets_init','add_widget_areas');
+
+//register main nav
+function register_header_nav_menu() {
+  register_nav_menu('header-menu',__( 'Header Menu' ));
+}
+add_action( 'init', 'register_header_nav_menu' );
 
 
 // Custom Post Types  ================================================================================
