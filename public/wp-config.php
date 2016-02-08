@@ -20,7 +20,7 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 
-$config = parse_ini_file('../Assets/mysqliConfig.ini');
+$config = parse_ini_file('mysqliConfig.ini');
 
 /** The name of the database for WordPress */
 define('DB_NAME', $config['database']);

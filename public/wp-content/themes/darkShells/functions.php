@@ -52,7 +52,7 @@ function post_type_softwareProject_init(){
 add_action('init','post_type_softwareProject_init');
 
 // post type for Terminal Themes
-function post_type_TerminalTheme_init(){
+function post_type_terminaltheme_init(){
   $labels = array(
         'name'                  => 'Terminal Themes',
         'singular_name'         => 'Terminal Theme',
@@ -65,18 +65,18 @@ function post_type_TerminalTheme_init(){
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'TerminalTheme' ),
+        'rewrite'            => array( 'slug' => 'terminaltheme' ),
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
-        'taxonomies'         => array( 'Terminal', 'Color', 'Recomendation'),
+        'taxonomies'         => array( 'terminal', 'colors', 'recomendation'),
         'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments')
     );
 
-  register_post_type('TerminalTheme', $args);
+  register_post_type('terminaltheme', $args);
 }
-add_action('init','post_type_CliReview_init');
+add_action('init','post_type_terminaltheme_init');
 
 // post type for CLI-reviews
 function post_type_CliReview_init(){
@@ -107,6 +107,7 @@ add_action('init','post_type_CliReview_init');
 
 // Taxonomies ------------------------------------------------------------
 
+/*
 // Color-Taxonomy, used for TerminalThemes 
 function create_Color_taxonomy(){
    register_taxonomy(
@@ -120,15 +121,30 @@ function create_Color_taxonomy(){
   ); 
 }
 add_action('init', 'create_Color_taxonomy');
+ */
+
+
+function add_color_taxonomy() {
+    $args = [
+    'name' => 'Colors',
+    'singular_name' => 'Color',
+    'label' => 'Color',
+    'rewrite' => ['slug' => 'color'],
+    'hierarchical' => false
+    ];
+    register_taxonomy('color', 'terminaltheme', $args);
+}
+add_action( 'init', 'add_color_taxonomy');
+
 
 // Terminal-Taxonomy, used for TerminalThemes 
-function create_Terminal_taxonomy(){
+function create_terminal_taxonomy(){
    register_taxonomy(
-    'Terminal',
-    'TerminalTheme',
+    'terminal',
+    'terminaltheme',
     array(
       'label'        => 'Terminal Emulator',
-      'rewrite'      => array( 'slug' => 'Terminal' ),
+      'rewrite'      => array( 'slug' => 'terminal' ),
       'hierarchical' => false,
     )
   ); 
@@ -136,24 +152,24 @@ function create_Terminal_taxonomy(){
 add_action('init', 'create_Terminal_taxonomy');
 
 // ProgramType-Taxonomy, used for CliReviews 
-function create_Programtype_taxonomy(){
+function create_programtype_taxonomy(){
    register_taxonomy(
-    'ProgramType',
-    'CliReview',
+    'programtype',
+    array('clireview', 'softwareproject'),
     array(
       'label'        => 'Program Type',
-      'rewrite'      => array( 'slug' => 'ProgramType' ),
+      'rewrite'      => array( 'slug' => 'programtype' ),
       'hierarchical' => true
     )
   ); 
 }
-add_action('init', 'create_Programtype_taxonomy');
+add_action('init', 'create_programtype_taxonomy');
 
 // Recomendation-Taxonomy, used for CliReview and TerminalTheme
 function create_recommendation_taxonomy(){
    register_taxonomy(
-    'Recomendation',
-    array('CliReview', 'TerminalTheme'),
+    'recomendation',
+    array('clireview', 'terminaltheme'),
     array(
       'label'        => 'Recomendation',
       'rewrite'      => array( 'slug' => 'recommendation' ),
@@ -164,10 +180,10 @@ function create_recommendation_taxonomy(){
 add_action('init', 'create_recommendation_taxonomy');
 
 // taxonomy for softwareProjects 
-function create_softwareProject_taxonomy(){
+function create_tech_taxonomy(){
    register_taxonomy(
     'tech',
-    'softwareProject',
+    'softwareproject',
     array(
       'label' => 'Tech',
       'rewrite' => array( 'slug' => 'tech' ),
@@ -175,7 +191,7 @@ function create_softwareProject_taxonomy(){
     )
   ); 
 }
-add_action('init', 'create_softwareProject_taxonomy');
+add_action('init', 'create_tech_taxonomy');
 
 
 // Admin Panel ================================================================================
