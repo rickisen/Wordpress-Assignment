@@ -1,6 +1,13 @@
       <div class="clear"> </div>
       <div class="footer">
-        <p>This is the footer, I'll pu some nice coloerd divs here, and if someone scrolls, some conatcinfo, maybe even a widget area.</p>
+        <div class="arrows">
+        <span class="arrow arrow-leftside"><?php the_author() ?></span>
+          <span class="arrow arrow-leftside"><?php the_title() ?></span>
+          <?php the_permalink() ?>
+          <span class="arrow arrow-rightside"><?php echo date("Y-m-D") ?></span>
+          <span class="arrow arrow-rightside"> DarkShells </span>
+          <div class="clear"> </div>
+        </div>
       </div>
     </div> <!-- end of wrapper -->
   </body>

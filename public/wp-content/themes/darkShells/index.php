@@ -16,7 +16,7 @@
 
 get_header(); ?>
 
-<div class="content">
+<div class="content flex-container">
   <?php get_sidebar() ?>
 
   <div class="middle">
