@@ -1,9 +1,9 @@
 <?php get_header(); ?>
 
-<?php get_sidebar(); ?>
-
-<?php the_post() ?>
-<?php get_template_part('template-parts/blogpost') ?>
+<div class="content">
+  <?php the_post() ?>
+  <?php get_template_part('template-parts/blogpost') ?>
+</div>
 
 <?php get_footer(); ?>
 

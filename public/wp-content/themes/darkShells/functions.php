@@ -30,6 +30,14 @@ add_action( 'init', 'register_header_nav_menu' );
 
 // Custom Post Types  ================================================================================
 
+// Show CPT on home page
+function add_my_post_types_to_query( $query ) {
+  if ( is_home() && $query->is_main_query() )
+    $query->set( 'post_type', array( 'post', 'softwareProject', 'terminaltheme', 'CliReview' ) );
+  return $query;
+}
+add_action( 'pre_get_posts', 'add_my_post_types_to_query' );
+
 // post type for software projects hosted on github
 function post_type_softwareProject_init(){
   $labels = array(

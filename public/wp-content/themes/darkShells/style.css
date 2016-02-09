@@ -60,33 +60,67 @@ table {
 }
 /* CSS RESET END ==================== */
 
-/* elements */
+/* elements -------------------- */
 * {
   box-sizing: border-box;
 }
 
 body {
+  background-image:url(http://wallpaperbeta.com/wallpaper/yellow_rope_threads_column_macro_hd-wallpaper-239779.jpg);
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   background-color: #222;
   color: #ddd;
   font-family: 'Source Code Pro';
 }
 
-a {
-  color:#3987c0;
+input { color: #ddd; }
+
+h1 {color:#e45641}
+h2 {color:#f1a94e}
+h3 {color:#44b3c2}
+h4 {color:#3987c0}
+h4 {color:#94f91d}
+
+a { 
+  color:#3987c0; 
+  text-decoration: none; 
+  outline: 0;
 }
 
+a:hover, a:hover *, a:active, a:active *, a:focus, a:focus *{
+  background-color: #f1a94e;
+  color:#222;
+}
+
+/*
+a p, p a, ul li a{ 
+  text-decoration: underline; 
+}
+*/
+
 hr {
-  border:1px dashed #444;
+  border:none;
+  border-top:1px solid #f1a94e;
 }
 
 p{
   padding-top: 1em;
 }
-h1,h2,h3,h4,h5,h6 {
+
+h1,h2 {
   font-weight: bold;
 }
 
-/* misq classes */
+input {
+  background-color: #222;
+  border:none;
+  border-bottom:1px solid #444;
+  height:1.2em;
+}
+
+/* misq classes ----------*/
 .float-right{
   float:right;
 }
@@ -100,14 +134,16 @@ h1,h2,h3,h4,h5,h6 {
   padding-right: .5em ;
 }
 
-/* top to bottom */
+/* top to bottom ----------*/
 
 .wrapper {
   max-width:1200px;
   margin: 1em auto;
+  background-color: #222;
+  box-shadow: 0em 0em 1em #000;
 }
 
-.header,.footer,.left-sidebar {
+.header,.footer{
   padding:1em;
 }
 
@@ -124,9 +160,11 @@ h1,h2,h3,h4,h5,h6 {
   display:flex;
   border-right: 1px solid grey;
   border-left: 1px solid grey;
+  padding:0 1em;
 }
 
 .left-sidebar {
+  width:1em;
   flex-grow: 1;
   padding-top: 0em;
 }
@@ -137,6 +175,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .middle{
+  width:1em;
   padding-left:1em;
   border-left: 1px dashed #444;
   flex-grow: 9;
@@ -146,8 +185,25 @@ h1,h2,h3,h4,h5,h6 {
   margin-bottom:1em;
 }
 
+.excerpt-container {
+  display:flex;
+}
+
+.excerpt-container .excerpt{
+  width:1px;
+  flex-grow:5;
+}
+
+.excerpt-container .post-info{
+  width:1px;
+  flex-grow: 1;
+  border-left: 1px solid grey;
+  padding-left: 1em;
+  margin-left: 1em;
+}
+
 .card-holder {
-  border: 1px solid #444;
+  border: 1px solid #f1a94e;
   margin:1em 1em 1em 0em;
   padding:1em 0em 1em 1em;
 }
@@ -159,7 +215,7 @@ h1,h2,h3,h4,h5,h6 {
 .small-card {
   width:0px;
   flex-grow:1;
-  border-right:1px solid #444;
+  border-right:1px solid #f1a94e;
   margin-right:1em;
 }
 .small-card:last-child {

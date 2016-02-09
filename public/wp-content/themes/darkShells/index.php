@@ -21,11 +21,9 @@ get_header(); ?>
 
   <div class="middle">
 
-    <h1>THIS IS THE INDEX PAGE</h1>
-
     <div class="posts">
       <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-        <?php get_template_part('template-parts/blogpost') ?>
+        <?php get_template_part('template-parts/excerpts') ?>
       <?php endwhile; else : ?>
         <p><?php _e( 'Nothing to see here... Move along' ); ?></p>
       <?php endif; ?>
