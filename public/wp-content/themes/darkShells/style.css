@@ -167,14 +167,21 @@ input {
 }
 
 .left-sidebar {
-  width:1em;
-  flex-grow: 1;
   padding-top: 0em;
+  padding-right:1em;
+  max-width: 12em;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.left-sidebar > li 
-{
+.left-sidebar > li > ul  {
   padding-bottom:1em;
+}
+
+.left-sidebar ul li {
+  padding-left: 1em;
 }
 
 .middle{

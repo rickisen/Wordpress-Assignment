@@ -16,9 +16,7 @@
               }
 
               echo implode(', ', $technologies);
-            } else {
-              echo 'No tech';
-            }
+            } 
           ?> </p>
       </div>
     <?php endwhile; ?>
