@@ -27,16 +27,16 @@ function register_header_nav_menu() {
 }
 add_action( 'init', 'register_header_nav_menu' );
 
-
-// Custom Post Types  ================================================================================
-
 // Show CPT on home page
 function add_my_post_types_to_query( $query ) {
-  if ( is_home() && $query->is_main_query() )
+  if ( is_home() && $query->is_main_query() ){
     $query->set( 'post_type', array( 'post', 'softwareProject', 'terminaltheme', 'CliReview' ) );
+  }
   return $query;
 }
 add_action( 'pre_get_posts', 'add_my_post_types_to_query' );
+
+// Custom Post Types  ================================================================================
 
 // post type for software projects hosted on github
 function post_type_softwareProject_init(){
@@ -111,32 +111,15 @@ function post_type_CliReview_init(){
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
-        'taxonomies'         => array('ProgramType', 'Recomendation'),
+        'taxonomies'         => array('programtype', 'recomendation'),
         'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments')
     );
 
-  register_post_type('CliReview', $args);
+  register_post_type('clireview', $args);
 }
 add_action('init','post_type_CliReview_init');
 
 // Taxonomies ------------------------------------------------------------
-
-/*
-// Color-Taxonomy, used for TerminalThemes 
-function create_Color_taxonomy(){
-   register_taxonomy(
-    'Color',
-    'TerminalTheme',
-    array(
-      'label'        => 'Color',
-      'rewrite'      => array( 'slug' => 'Color' ),
-      'hierarchical' => false,
-    )
-  ); 
-}
-add_action('init', 'create_Color_taxonomy');
- */
-
 
 function add_color_taxonomy() {
     $args = [
@@ -207,6 +190,13 @@ function create_tech_taxonomy(){
 }
 add_action('init', 'create_tech_taxonomy');
 
+// Filters for widgets ====================
+
+add_filter('widget_posts_args', 'widget_posts_args_add_custom_type'); 
+function widget_posts_args_add_custom_type() {
+   $params['post_type'] = array('post','softwareproject','terminaltheme','clireview');
+   return $params;
+}
 
 // Admin Panel ================================================================================
 
