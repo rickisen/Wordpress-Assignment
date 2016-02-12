@@ -62,14 +62,14 @@ table {
 
 /* elements -------------------- */
 body {
-  /* background-image:url(http://wallpaperbeta.com/wallpaper/yellow_rope_threads_column_macro_hd-wallpaper-239779.jpg); */
-background-image:url(http://put.nu/files/okXkft9.jpg);
+  background-image:url(http://put.nu/files/okXkft9.jpg);
   background-size:cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-color: #222;
   color: #ddd;
   font-family: 'Source Code Pro';
+  /* font-size:16px; */
 }
 
 input { color: #ddd; }
@@ -104,6 +104,7 @@ hr {
 
 p {
   padding-bottom: 1em;
+  max-width: 50em;
 }
 
 h1 {
@@ -116,8 +117,6 @@ input {
   border-bottom:1px solid #444;
   height:1.2em;
 }
-
-
 
 
 /* misq classes ----------*/
@@ -134,22 +133,23 @@ input {
   padding-right: .5em ;
 }
 
-/* top to bottom ----------*/
 
+/* top to bottom ----------*/
 .wrapper {
-  max-width:1200px;
+  max-width: 75em;
+  width: 85vw;
+  min-width: 50em;
   margin: 1em auto;
+}
+
+.window-colors {
   background-color: #222;
   box-shadow: 0em 0em 1em #000;
+  border:1px solid grey;
 }
 
-.header,.footer{
+.header{
   padding:1em;
-}
-
-.header {
-  border: 1px solid grey;
-  border-bottom:none;
 }
 
 .header .home {
@@ -161,9 +161,8 @@ input {
 }
 
 .content{
-  border-right: 1px solid grey;
-  border-left: 1px solid grey;
   padding:0 1em;
+  height:80vh;
 }
 
 .left-sidebar {
@@ -189,9 +188,7 @@ input {
   padding-left:1em;
   border-left: 1px dashed #444;
   flex-grow: 9;
-}
-
-.blogpost {
+  overflow:scroll;
 }
 
 .posts {
@@ -236,9 +233,7 @@ input {
 }
 
 .footer {
-  border:1px solid grey;
-  border-top:none;
-  min-height: 2em;
+  padding: 0em 1em 1em 1em;
 }
 
 /* the colored vim arrows that are in the footer */
@@ -252,41 +247,45 @@ input {
 }
 
 .arrows .arrow{
+  position: relative;
+
   display: inline-block;
-  height: 22px;
+  height: 1.4em;
   background-color: #f1a94e;
   color:#222;
   min-width: 1em;
-}
-
-.arrows .rightside-arrows .arrow{
-  margin-left: -0.7em;
+  padding: 0em 1em;
 }
 
 .arrows .leftside-arrows .arrow{
-  margin-right: -1em;
+  margin-right:-0.6em;
+}
+
+.arrows .rightside-arrows .arrow{
+  margin-left:-0.6em;
 }
 
 .arrows .no-arrow {
+  min-width:1em;
+  flex: 1;
+  color:#aaa;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width:1em;
-  flex: 1;
-  padding-left:1em;
-
-  color:#aaa
+  margin:0 2em;
 }
 
 .arrows .leftside-arrows .arrow:after, .arrows .rightside-arrows .arrow:before {
-  font-size:0em;
-  content: ' ';
+  content:'';
   vertical-align: middle;
-	border: 11px solid transparent;
+	border: calc(1.4em / 2 ) solid transparent;
+  z-index: 4;
+	border-color: transparent;
+  position:absolute;
 }
 
 .arrows .leftside-arrows .arrow:after {
-	border-color: #44b3c2;
+  left:100%;
 	border-left-color: #f1a94e;
 }
 
@@ -295,22 +294,27 @@ input {
 }
 
 .arrows .leftside-arrows .arrow:nth-child(2):after {
-  border-color: #222;
   border-left-color: #44b3c2;
 }
 
 .arrows .rightside-arrows .arrow:before {
-	border-color: #222;
+  right:100%;
 	border-right-color: #f1a94e;
 }
 
 .arrows .rightside-arrows .arrow:nth-child(2):before {
-	border-color: #f1a94e;
 	border-right-color: #e45641;
 }
 
 .arrows .rightside-arrows .arrow:nth-child(2){
   background-color: #e45641;
-  padding-right: .5em;
 }
 
+.hidden-footer {
+  margin: 20vh auto ;
+}
+
+.hidden-footer > * {
+  padding: 1em;
+  flex:1;
+}
