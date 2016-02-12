@@ -11,7 +11,7 @@
 	<?php wp_head(); ?>
 </head>
 <body>
-<div class="wrapper">
+<div class="wrapper window-colors">
   <div class="header">
 
     <div class="home">

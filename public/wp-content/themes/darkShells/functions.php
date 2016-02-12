@@ -18,6 +18,10 @@ function add_widget_areas(){
     'name' => 'Left Sidebar',
     'id' => 'sidebar-left'
   ]);
+  register_sidebar([
+    'name' => 'Hidden Footer',
+    'id' => 'sidebar-hidden'
+  ]);
 }
 add_action('widgets_init','add_widget_areas');
 

@@ -13,5 +13,10 @@
         </div>
       </div>
     </div> <!-- end of wrapper -->
+    <?php if (is_active_sidebar('sidebar-hidden')) : ?>
+      <div class="hidden-footer wrapper window-colors flex-container">
+        <?php dynamic_sidebar('sidebar-hidden'); ?>
+      </div>
+    <?php endif ?>
   </body>
 </html>
