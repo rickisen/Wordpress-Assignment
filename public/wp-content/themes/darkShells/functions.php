@@ -134,7 +134,6 @@ function add_color_taxonomy() {
 }
 add_action( 'init', 'add_color_taxonomy');
 
-
 // Terminal-Taxonomy, used for TerminalThemes 
 function create_terminal_taxonomy(){
    register_taxonomy(
@@ -192,14 +191,16 @@ function create_tech_taxonomy(){
 add_action('init', 'create_tech_taxonomy');
 
 // metaboxes -----------------------------
-function add_ghlink_metaboxes(){
-  add_meta_box('ghlink-metabox', 'Github Repo', 
-    'ghlink_callback', 'softwareproject',
+
+// Softwareprojects ----------
+function add_sp_metaboxes(){
+  add_meta_box('sp-metabox', 'Softwareproject Metadata', 
+    'sp_callback', 'softwareproject',
     'normal','high');
 }
-add_action('add_meta_boxes', 'add_ghlink_metaboxes');
+add_action('add_meta_boxes', 'add_sp_metaboxes');
 
-function ghlink_callback(){
+function sp_callback(){
   global $post;
 
   // creates the nonce we will recieve later, 
@@ -209,15 +210,26 @@ function ghlink_callback(){
 
   // get the link if it's allready been entered
   $ghlink = get_post_meta($post->ID,'_ghlink', true);
+  $screenshot = get_post_meta($post->ID,'_screenshot', true);
 
-  // the input field
-  echo '<input type="text" name="_location" value="'.$ghlink.'" class="widefat" />';
+  // the input fields, potentially prefilled with previous data
+  echo '
+        <h2>Github Repo</h2>
+        <p>The address to the repo, with the "https://" part </p>
+        <input type="text" name="_ghlink" value="'.$ghlink.'" class="widefat" 
+        placeholder="https://github.com/user/repo" /> <hr>
+      ';
 
+  echo '
+        <h2>Screenshot</h2>
+        <p>The address to a screenshot of the app, with the "http://" part </p>
+        <input type="text" name="_screenshot" value="'.$screenshot.'" class="widefat" 
+        placeholder="http://imagehost.com/image.jpg" />
+      ';
 }
 
-function save_softwareprojectmeta_ghlink($post_id, $post){
-
-  // verify this is the right call
+function save_softwareprojectmeta($post_id, $post){
+  // verify this is the right call we're handling
   if (!wp_verify_nonce($_POST['softwareprojectmeta_noncename'], plugin_basename(__FILE__) )){
     return $post->ID;
   }
@@ -227,7 +239,8 @@ function save_softwareprojectmeta_ghlink($post_id, $post){
     return $post->ID;
   }
 
-  $events_meta['_ghlink'] = $POST['_ghlink'];
+  $events_meta['_ghlink']     = $_POST['_ghlink'];
+  $events_meta['_screenshot'] = $_POST['_screenshot'];
   
   foreach($events_meta as $key => $value){
     //don't store custom data twice
@@ -239,7 +252,7 @@ function save_softwareprojectmeta_ghlink($post_id, $post){
     $value = implode(',', (array)$value); 
     
     // If the custom field already has a value, we update it, 
-    // otherwise we add a new meta
+    // otherwise we add a new meta, or destroy it
     if(get_post_meta($post->ID, $key, FALSE)) { 
       update_post_meta($post->ID, $key, $value);
     } else { 
@@ -254,7 +267,151 @@ function save_softwareprojectmeta_ghlink($post_id, $post){
     }
   }
 }
-add_action('save_post', 'save_softwareprojectmeta_ghlink', 1, 2);
+add_action('save_post', 'save_softwareprojectmeta', 1, 2);
+
+// Terminalthemes ----------
+function add_tt_metaboxes(){
+  add_meta_box('tt-metabox', 'Terminal Theme Metadata', 
+    'tt_callback', 'terminaltheme',
+    'normal','high');
+}
+add_action('add_meta_boxes', 'add_tt_metaboxes');
+
+function tt_callback(){
+  global $post;
+
+  // creates the nonce we will recieve later, 
+  // although since this code is in functions.php, the noun should be that file, weird
+  echo '<input type="hidden" name="terminaltheme_noncename" 
+    id="terminaltheme_noncename" value="'.wp_create_nonce(plugin_basename(__FILE__)).'">';
+
+  // get the link if it's allready been entered
+  $screenshot = get_post_meta($post->ID,'_screenshot', true);
+  $link = get_post_meta($post->ID,'_link', true);
+
+  // the input fields, potentially prefilled with previous data
+  echo '
+        <h2>Link</h2>
+        <p>The address to the theme file, with the "https://" part </p>
+        <input type="text" name="_link" value="'.$link.'" class="widefat" 
+        placeholder="https://github.com/user/themerepo" /> <br><br><hr>
+      ';
+  echo '
+        <h2>Screenshot</h2>
+        <p>The address to a screenshot of the theme, with the "http://" part </p>
+        <input type="text" name="_screenshot" value="'.$screenshot.'" class="widefat" 
+        placeholder="http://imagehost.com/image.jpg" />
+      ';
+}
+
+function save_terminalthememeta($post_id, $post){
+  // verify this is the right call we're handling
+  if (!wp_verify_nonce($_POST['terminaltheme_noncename'], plugin_basename(__FILE__) )){
+    return $post->ID;
+  }
+
+  //verify permissions
+  if (!current_user_can('edit_post', $post->ID)) {
+    return $post->ID;
+  }
+
+  $events_meta['_screenshot'] = $_POST['_screenshot'];
+  $events_meta['_link']       = $_POST['_link'];
+  
+  foreach($events_meta as $key => $value){
+    //don't store custom data twice
+    if ($post->post_type == 'revision') {
+      return;
+    }
+    
+    // If $value is an array, make it a CSV (unlikely)
+    $value = implode(',', (array)$value); 
+    
+    // If the custom field already has a value, we update it, 
+    // otherwise we add a new meta, or destroy it
+    if(get_post_meta($post->ID, $key, FALSE)) { 
+      update_post_meta($post->ID, $key, $value);
+    } else { 
+      // the custom field doesn't have a value so add it
+      add_post_meta($post->ID, $key, $value);
+    }	        
+    
+    // if we got an empty value, the user 
+    // wanted to delete that field
+    if(!$value) {
+      delete_post_meta($post->ID, $key); 
+    }
+  }
+}
+add_action('save_post', 'save_terminalthememeta', 1, 2);
+
+// CliReviews ----------
+function add_cr_metaboxes(){
+  add_meta_box('cr-metabox', 'Cli Review Metadata', 
+    'cr_callback', 'clireview',
+    'normal','high');
+}
+add_action('add_meta_boxes', 'add_cr_metaboxes');
+
+function cr_callback(){
+  global $post;
+
+  // creates the nonce we will recieve later, 
+  // although since this code is in functions.php, the noun should be that file, weird
+  echo '<input type="hidden" name="clireview_noncename" 
+    id="clireview_noncename" value="'.wp_create_nonce(plugin_basename(__FILE__)).'">';
+
+  // get the link if it's allready been entered
+  $screenshot = get_post_meta($post->ID,'_screenshot', true);
+
+  // the input fields, potentially prefilled with previous data
+  echo '
+        <h2>Screenshot</h2>
+        <p>The address to a screenshot of the app, with the "http://" part </p>
+        <input type="text" name="_screenshot" value="'.$screenshot.'" class="widefat" 
+        placeholder="http://imagehost.com/image.jpg" />
+      ';
+}
+
+function save_clireviewmeta($post_id, $post){
+  // verify this is the right call we're handling
+  if (!wp_verify_nonce($_POST['clireview_noncename'], plugin_basename(__FILE__) )){
+    return $post->ID;
+  }
+
+  //verify permissions
+  if (!current_user_can('edit_post', $post->ID)) {
+    return $post->ID;
+  }
+
+  $events_meta['_screenshot'] = $_POST['_screenshot'];
+  
+  foreach($events_meta as $key => $value){
+    //don't store custom data twice
+    if ($post->post_type == 'revision') {
+      return;
+    }
+    
+    // If $value is an array, make it a CSV (unlikely)
+    $value = implode(',', (array)$value); 
+    
+    // If the custom field already has a value, we update it, 
+    // otherwise we add a new meta, or destroy it
+    if(get_post_meta($post->ID, $key, FALSE)) { 
+      update_post_meta($post->ID, $key, $value);
+    } else { 
+      // the custom field doesn't have a value so add it
+      add_post_meta($post->ID, $key, $value);
+    }	        
+    
+    // if we got an empty value, the user 
+    // wanted to delete that field
+    if(!$value) {
+      delete_post_meta($post->ID, $key); 
+    }
+  }
+}
+add_action('save_post', 'save_clireviewmeta', 1, 2);
 
 // Filters for widgets ====================
 
@@ -269,7 +426,6 @@ add_filter('widget_posts_args', 'widget_posts_args_add_custom_type');
 // Admin Panel ================================================================================
 
 function customize_colors_register( $wp_customize ){
-
   $wp_customize->add_section('colors', ['title' => "Theme colors", 'priority' => 10]);
 
   $wp_customize->add_setting('font_color', ['default' => "#ddd", 'transport' => 'refresh']);
