@@ -22,4 +22,6 @@ wp-content/plugins/hello.php
 adminer.css
 adminer.php
 mysqliConfig.ini
+mysqliConfig-remote.ini
 Thumbs.db
+.ini
