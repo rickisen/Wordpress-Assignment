@@ -163,15 +163,21 @@ input {
 .content{
   padding:0 1em;
   height:80vh;
+  overflow-y:scroll;
+  overflow-x: hidden;
 }
 
 .left-sidebar {
-  padding-top: 0em;
-  padding-right:1em;
+  padding: 0em 1em 0 0;
+  margin-right:1em;
   max-width: 12em;
+  border-right:1px solid grey;
+  overflow-y: scroll;
+}
 
+.left-sidebar * {
   white-space: nowrap;
-  overflow: hidden;
+  overflow-x: hidden;
   text-overflow: ellipsis;
 }
 
@@ -184,15 +190,22 @@ input {
 }
 
 .middle{
-  width:1em;
-  padding-left:1em;
-  border-left: 1px dashed #444;
+  min-width:1em;
   flex-grow: 9;
-  overflow:scroll;
+  overflow-y:scroll;
+  overflow-x:hidden;
 }
 
 .posts {
   margin-bottom:1em;
+}
+
+.screenshot {
+  background-size:cover;
+  background-position: center;
+  border:1px solid grey;
+  height: 20em;
+  width: 20em;
 }
 
 .excerpt-container {

@@ -63,7 +63,7 @@ function post_type_softwareProject_init(){
         'menu_position'        => null,
         'taxonomies'           => array('tech'),
         'supports'             => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt'),
-        'register_metabox_cb'  => 'add_ghlink_metaboxes',
+        'register_metabox_cb'  => 'add_sp_metaboxes',
     );
 
   register_post_type('softwareproject', $args);
@@ -90,6 +90,7 @@ function post_type_terminaltheme_init(){
         'hierarchical'       => false,
         'menu_position'      => null,
         'taxonomies'         => array( 'terminal', 'colors', 'recomendation'),
+        'register_metabox_cb'  => 'add_tt_metaboxes',
         'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments')
     );
 
@@ -117,6 +118,7 @@ function post_type_CliReview_init(){
         'hierarchical'       => false,
         'menu_position'      => null,
         'taxonomies'         => array('programtype', 'recomendation'),
+        'register_metabox_cb'  => 'add_cr_metaboxes',
         'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments')
     );
 
