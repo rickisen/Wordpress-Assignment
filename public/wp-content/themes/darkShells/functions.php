@@ -46,22 +46,23 @@ function post_type_softwareProject_init(){
     );
  
     $args = array(
-        'labels'             => $labels,
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'softwareproject' ),
-        'capability_type'    => 'post',
-        'has_archive'        => true,
-        'hierarchical'       => false,
-        'menu_position'      => null,
-        'taxonomies'         => array('tech'),
-        'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt')
+        'labels'               => $labels,
+        'public'               => true,
+        'publicly_queryable'   => true,
+        'show_ui'              => true,
+        'show_in_menu'         => true,
+        'query_var'            => true,
+        'rewrite'              => array( 'slug' => 'softwareproject' ),
+        'capability_type'      => 'post',
+        'has_archive'          => true,
+        'hierarchical'         => false,
+        'menu_position'        => null,
+        'taxonomies'           => array('tech'),
+        'supports'             => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt'),
+        'register_metabox_cb'  => 'add_ghlink_metaboxes',
     );
 
-  register_post_type('softwareProject', $args);
+  register_post_type('softwareproject', $args);
 }
 add_action('init','post_type_softwareProject_init');
 
@@ -190,13 +191,80 @@ function create_tech_taxonomy(){
 }
 add_action('init', 'create_tech_taxonomy');
 
+// metaboxes -----------------------------
+function add_ghlink_metaboxes(){
+  add_meta_box('ghlink-metabox', 'Github Repo', 
+    'ghlink_callback', 'softwareproject',
+    'normal','high');
+}
+add_action('add_meta_boxes', 'add_ghlink_metaboxes');
+
+function ghlink_callback(){
+  global $post;
+
+  // creates the nonce we will recieve later, 
+  // although since this code is in functions.php, the noun should be that file, weird
+  echo '<input type="hidden" name="softwareprojectmeta_noncename" 
+    id="softwareprojectmeta_noncename" value="'.wp_create_nonce(plugin_basename(__FILE__)).'">';
+
+  // get the link if it's allready been entered
+  $ghlink = get_post_meta($post->ID,'_ghlink', true);
+
+  // the input field
+  echo '<input type="text" name="_location" value="'.$ghlink.'" class="widefat" />';
+
+}
+
+function save_softwareprojectmeta_ghlink($post_id, $post){
+
+  // verify this is the right call
+  if (!wp_verify_nonce($_POST['softwareprojectmeta_noncename'], plugin_basename(__FILE__) )){
+    return $post->ID;
+  }
+
+  //verify permissions
+  if (!current_user_can('edit_post', $post->ID)) {
+    return $post->ID;
+  }
+
+  $events_meta['_ghlink'] = $POST['_ghlink'];
+  
+  foreach($events_meta as $key => $value){
+    //don't store custom data twice
+    if ($post->post_type == 'revision') {
+      return;
+    }
+    
+    // If $value is an array, make it a CSV (unlikely)
+    $value = implode(',', (array)$value); 
+    
+    // If the custom field already has a value, we update it, 
+    // otherwise we add a new meta
+    if(get_post_meta($post->ID, $key, FALSE)) { 
+      update_post_meta($post->ID, $key, $value);
+    } else { 
+      // the custom field doesn't have a value so add it
+      add_post_meta($post->ID, $key, $value);
+    }	        
+    
+    // if we got an empty value, the user 
+    // wanted to delete that field
+    if(!$value) {
+      delete_post_meta($post->ID, $key); 
+    }
+  }
+}
+add_action('save_post', 'save_softwareprojectmeta_ghlink', 1, 2);
+
 // Filters for widgets ====================
 
-add_filter('widget_posts_args', 'widget_posts_args_add_custom_type'); 
+// Adds a filter that includes my CPT's so that widgets 
+// like 'recent posts' gets all CPT's posts
 function widget_posts_args_add_custom_type() {
    $params['post_type'] = array('post','softwareproject','terminaltheme','clireview');
    return $params;
 }
+add_filter('widget_posts_args', 'widget_posts_args_add_custom_type'); 
 
 // Admin Panel ================================================================================
 
