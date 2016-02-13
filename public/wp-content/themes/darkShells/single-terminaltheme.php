@@ -9,7 +9,7 @@
     <a href="<?php echo $link ; ?>">Download here</a>
   <?php endif; ?>
   <?php if ( $screenshot = get_post_meta($post->ID, '_screenshot', true)): ?>
-    <div class="screenshot" style="background-image:url(<?php echo $screenshot ;?>)"> </div>
+    <img class="screenshot" src="<?php echo $screenshot ;?>">
   <?php endif; ?>
 
 </div>

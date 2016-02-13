@@ -216,9 +216,16 @@ function sp_callback(){
 
   // get the link if it's allready been entered
   $ghlink = get_post_meta($post->ID,'_ghlink', true);
+  $link = get_post_meta($post->ID,'_link', true);
   $screenshot = get_post_meta($post->ID,'_screenshot', true);
 
   // the input fields, potentially prefilled with previous data
+  echo '
+        <h2>Link to Webpage</h2>
+        <p>The address to the page, with the "http://" part </p>
+        <input type="text" name="_link" value="'.$link.'" class="widefat" 
+        placeholder="http://www.myhompage.com" /> <hr>
+      ';
   echo '
         <h2>Github Repo</h2>
         <p>The address to the repo, with the "https://" part </p>
@@ -246,6 +253,7 @@ function save_softwareprojectmeta($post_id, $post){
   }
 
   $events_meta['_ghlink']     = $_POST['_ghlink'];
+  $events_meta['_link']     = $_POST['_link'];
   $events_meta['_screenshot'] = $_POST['_screenshot'];
   
   foreach($events_meta as $key => $value){

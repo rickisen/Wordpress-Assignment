@@ -1,4 +1,4 @@
-      <div class="clear"> </div>
+      <?php wp_reset_postdata()?>
       <div class="footer">
         <div class="arrows flex-container">
           <span class="leftside-arrows">

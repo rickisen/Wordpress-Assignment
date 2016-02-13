@@ -29,7 +29,8 @@ get_header(); ?>
       <?php endif; ?>
     </div>
 
-    <?php get_template_part('template-parts/softwareProjects'); ?>
+    <?php $postType = 'softwareproject'; $title = 'My Recent Software Projects'; ?>
+    <?php include(locate_template('template-parts/small-cards.php')) ?>
 
   </div>
 

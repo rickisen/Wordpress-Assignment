@@ -3,7 +3,8 @@
   <div class="small-cards">
   <?php 
     $postTypeObject = new WP_Query(['post_type' => $postType]); 
-    while($postTypeObject->have_posts()): $postTypeObject->the_post(); ?>
+    $count = 0 ;
+    while($postTypeObject->have_posts() && $count++ < 3): $postTypeObject->the_post(); ?>
       <div class="small-card">
         <a href="<?php the_permalink() ?>"><h3> <?php the_title(); ?></h3></a>
         <p> 
