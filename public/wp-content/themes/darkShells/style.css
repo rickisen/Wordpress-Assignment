@@ -7,7 +7,7 @@ Description: terminal/code-like theme
 Version: 1.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: black, blue, gray, red, white, yellow, dark, light, one-column, two-columns, right-sidebar, fixed-layout, responsive-layout, accessibility-ready, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, microformats, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready
+Tags: black, blue, gray, red, white, yellow, dark, light, one-column, two-columns, fixed-layout, responsive-layout, accessibility-ready, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, microformats, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready
 Text Domain: darkShells
 */
 
@@ -140,6 +140,7 @@ input {
   width: 85vw;
   min-width: 50em;
   margin: 1em auto;
+  overflow:hidden;
 }
 
 .window-colors {
@@ -163,8 +164,9 @@ input {
 .content{
   padding:0 1em;
   height:80vh;
-  overflow-y:scroll;
-  overflow-x: hidden;
+  width:100%;
+  overflow-y:auto;
+  overflow-x:hidden;
 }
 
 .left-sidebar {
@@ -172,7 +174,6 @@ input {
   margin:0 1em 1em 0;
   max-width: 12em;
   border-right:1px solid grey;
-  overflow-y: scroll;
 }
 
 .left-sidebar * {
@@ -192,8 +193,9 @@ input {
 .middle{
   min-width:1em;
   flex-grow: 9;
-  overflow-y:scroll;
-  overflow-x:hidden;
+  padding-right: 17px;
+  width:100%;
+  overflow-x:auto;
 }
 
 .posts {
@@ -202,9 +204,13 @@ input {
 
 .screenshot {
   border:1px solid grey;
-  max-width: 100%;
+  max-width: 98%;
   min-width: 25%;
   margin:1em auto;
+}
+
+.excerpts {
+  padding-right:1em;
 }
 
 .excerpt-container {
@@ -245,7 +251,7 @@ input {
 }
 
 .footer {
-  padding: 0em 1em 1em 1em;
+  padding: 0.2em 1em 1em 1em;
 }
 
 /* the colored vim arrows that are in the footer */
