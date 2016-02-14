@@ -1,5 +1,5 @@
 <div class="card-holder">
-<h1><?php echo $title ;?></h1>
+<h1><?php echo $title ;?></h1> <br>
   <div class="small-cards">
   <?php 
     $postTypeObject = new WP_Query(['post_type' => $postType]); 
