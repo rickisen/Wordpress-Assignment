@@ -441,24 +441,33 @@ add_filter('widget_posts_args', 'widget_posts_args_add_custom_type');
 
 function customize_colors_register( $wp_customize ){
   $wp_customize->add_section('colors', ['title' => "Theme colors", 'priority' => 10]);
+  $wp_customize->add_section('show-hide', ['title' => "Show/Hide parts of the theme", 'priority' => 10]);
 
-  $wp_customize->add_setting('font_color', ['default' => "#ddd", 'transport' => 'refresh']);
+
+  $wp_customize->add_setting('arrows', ['default' => true, 'transport' => 'refresh']);
   $wp_customize->add_control(
-      new WP_Customize_Color_Control($wp_customize, 'font_color', [
-          'label' => "Font Color",
-          'section' => 'colors',
-          'setting' => 'font_color'
+      new WP_Customize_Control($wp_customize, 'arrows', [
+          'label' => "Show arrows in the footer",
+          'section' => 'show-hide',
+          'setting' => 'arrow',
+          'type' => 'checkbox',
         ])
     );
 
-  $wp_customize->add_setting('background', ['default' => "#222", 'transport' => 'refresh']);
-  $wp_customize->add_control(
-      new WP_Customize_Color_Control($wp_customize, 'background', [
-          'label' => "Background",
-          'section' => 'colors',
-          'setting' => 'background'
-        ])
-    );
+  // add color-settigns 
+  $colors = [ 'background' => '#222', 'font_color' => '#ddd', 
+    'h1' => '#e45641', 'h2' => '#f1a94e', 'h3' => '#44b3c2', 
+    'h4' => '#3987c0', 'h5' => '#94f91d' ];
+  foreach ($colors as $name => $color){
+    $wp_customize->add_setting($name, ['default' => $color, 'transport' => 'refresh']);
+    $wp_customize->add_control(
+        new WP_Customize_Color_Control($wp_customize, $name, [
+            'label' => $name,
+            'section' => 'colors',
+            'setting' => $name
+          ])
+      );
+  }
 }
 add_action('customize_register','customize_colors_register');
 
@@ -466,9 +475,31 @@ function darkshells_cutomize_css(){
   ?>
     <style type="text/css">
        body { 
-        background:<?php echo get_theme_mod('background'); ?> ; 
+        background-color:<?php echo get_theme_mod('background'); ?> ; 
         color:<?php echo get_theme_mod('font_color'); ?> ; 
       }
+
+      .window-colors{ 
+        background-color:<?php echo get_theme_mod('background'); ?> ; 
+      }
+
+      h1 {color:<?php echo get_theme_mod('h1');?>}
+      h2 {color:<?php echo get_theme_mod('h2');?>}
+      h3 {color:<?php echo get_theme_mod('h3');?>}
+      h4 {color:<?php echo get_theme_mod('h4');?>}
+      h4 {color:<?php echo get_theme_mod('h5');?>}
+
+      .arrows{display:<?php echo get_theme_mod('arrows') ? 'flex' : 'none'; ?>;}
+
+      .arrows .leftside-arrows .arrow:nth-child(1) { background-color: <?php echo get_theme_mod('h2');?>; } 
+      .arrows .leftside-arrows .arrow:nth-child(1):after { border-left-color: <?php echo get_theme_mod('h2');?>; } 
+      .arrows .leftside-arrows .arrow:nth-child(2) { background-color: <?php echo get_theme_mod('h3');?>; }
+      .arrows .leftside-arrows .arrow:nth-child(2):after { border-left-color:<?php echo get_theme_mod('h3');?>; } 
+      .arrows .rightside-arrows .arrow:nth-child(1){ background-color: <?php echo get_theme_mod('h4');?>; }
+      .arrows .rightside-arrows .arrow:nth-child(1):before { border-right-color:<?php echo get_theme_mod('h4');?>; } 
+      .arrows .rightside-arrows .arrow:nth-child(2){ background-color: <?php echo get_theme_mod('h1');?>; } 
+      .arrows .rightside-arrows .arrow:nth-child(2):before { border-right-color:<?php echo get_theme_mod('h1');?>; } 
+
     </style>
   <?php
 }

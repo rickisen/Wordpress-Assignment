@@ -112,7 +112,7 @@ h1 {
 }
 
 input {
-  background-color: #222;
+  background-color: transparent;
   border:none;
   border-bottom:1px solid #444;
   height:1.2em;
@@ -145,7 +145,7 @@ input {
 
 .window-colors {
   background-color: #222;
-  box-shadow: 0em 0em 1em #000;
+  box-shadow: 0em 0em 1em #222;
   border:1px solid grey;
 }
 
@@ -269,7 +269,6 @@ input {
 
   display: inline-block;
   height: 1.4em;
-  background-color: #f1a94e;
   color:#222;
   min-width: 1em;
   padding: 0em 1em;
@@ -304,7 +303,18 @@ input {
 
 .arrows .leftside-arrows .arrow:after {
   left:100%;
-	border-left-color: #f1a94e;
+}
+
+.arrows .rightside-arrows .arrow:before {
+  right:100%;
+}
+
+.arrows .leftside-arrows .arrow:nth-child(1) {
+	background-color: #f1a94e;
+}
+
+.arrows .leftside-arrows .arrow:nth-child(1):after {
+  border-left-color: #f1a94e;
 }
 
 .arrows .leftside-arrows .arrow:nth-child(2) {
@@ -315,19 +325,23 @@ input {
   border-left-color: #44b3c2;
 }
 
-.arrows .rightside-arrows .arrow:before {
-  right:100%;
-	border-right-color: #f1a94e;
+.arrows .rightside-arrows .arrow:nth-child(1){
+	background-color: #f1a94e;
 }
 
-.arrows .rightside-arrows .arrow:nth-child(2):before {
-	border-right-color: #e45641;
+.arrows .rightside-arrows .arrow:nth-child(1):before {
+	border-right-color: #f1a94e;
 }
 
 .arrows .rightside-arrows .arrow:nth-child(2){
   background-color: #e45641;
 }
 
+.arrows .rightside-arrows .arrow:nth-child(2):before {
+	border-right-color: #e45641;
+}
+
+/* the footer that is only visible if it has widgets */
 .hidden-footer {
   margin: 20vh auto ;
 }
