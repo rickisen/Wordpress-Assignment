@@ -172,11 +172,13 @@ input {
 .left-sidebar {
   padding: 0em 1em 0 0;
   margin:0 1em 1em 0;
-  max-width: 12em;
+  flex-basis:12em;
+  flex:1;
   border-right:1px solid grey;
 }
 
 .left-sidebar * {
+  max-width:12em;
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
@@ -192,9 +194,10 @@ input {
 
 .middle{
   min-width:1em;
-  flex-grow: 9;
   padding-right: 17px;
   width:100%;
+  flex-basis:45em;
+  flex:9;
   overflow-x:auto;
 }
 
@@ -349,4 +352,39 @@ input {
 .hidden-footer > * {
   padding: 1em;
   flex:1;
+}
+
+/* tablet */
+@media all and (max-width:991px){
+  .content {
+    flex-direction:column;
+  }
+
+  .left-sidebar {
+    display: flex;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-right:none;
+    border-bottom:1px solid grey;
+    max-height: 5em;
+  }
+
+  .left-sidebar > li {
+    flex:1;
+  }
+
+  .left-sidebar * {
+    max-width: none;
+    overflow: hidden;
+  }
+}
+
+/* phone */
+@media all and (max-width:767px){
+  * {
+   max-width:100vw;
+  }
+  .post-info {
+    display: none;
+  }
 }
