@@ -21,13 +21,7 @@ get_header(); ?>
 
   <div class="middle">
 
-    <div class="posts">
-      <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-        <?php get_template_part('template-parts/excerpts') ?>
-      <?php endwhile; else : ?>
-        <p><?php _e( 'Nothing to see here... Move along' ); ?></p>
-      <?php endif; ?>
-    </div>
+    <?php get_template_part('template-parts/excerpt-loop'); ?>
 
     <!-- needs to do like this, otherwise variable scope is lost-->
     <?php $postType = 'softwareproject'; $title = 'Recent Software Projects'; ?>

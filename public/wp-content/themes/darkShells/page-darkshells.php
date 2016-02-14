@@ -1,3 +1,4 @@
+
 <?php
 
 get_header(); ?>
@@ -6,7 +7,6 @@ get_header(); ?>
   <?php get_sidebar() ?>
 
   <div class="middle">
-
     <?php the_post(); ?>
 
     <div class="posts">
@@ -15,7 +15,7 @@ get_header(); ?>
 
     <hr>
 
-    <?php $postTypeObject = new WP_Query(['post_type' => 'post']); 
+    <?php $postTypeObject = new WP_Query(['post_type' => array( 'post', 'softwareProject', 'terminaltheme', 'CliReview' )]); 
       while($postTypeObject->have_posts()){
           $postTypeObject->the_post(); 
           get_template_part('template-parts/excerpts');
@@ -23,7 +23,6 @@ get_header(); ?>
     ?>
 
   </div>
-
 </div>
 <?php get_footer(); ?>
 

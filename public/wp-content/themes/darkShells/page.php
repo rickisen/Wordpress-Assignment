@@ -12,7 +12,8 @@ get_header(); ?>
   <div class="middle">
     <div class="posts">
       <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-        <?php get_template_part('template-parts/blogpost') ?>
+        <a href="<?php the_permalink() ?>"><h2> <?php the_title(); ?></h2></a>
+        <?php get_template_part('template-parts/pagepost') ?>
       <?php endwhile; else : ?>
         <p><?php _e( 'Nothing to see here... Move along' ); ?></p>
       <?php endif; ?>

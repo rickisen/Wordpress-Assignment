@@ -20,14 +20,10 @@ get_header(); ?>
   <?php get_sidebar() ?>
 
   <div class="middle">
-    <div class="posts">
-      <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-        <?php get_template_part('template-parts/excerpts'); ?>
-      <?php endwhile; else : ?>
-        <p><?php echo 'Nothing to see here... Move along' ; ?></p>
-      <?php endif; ?>
-    </div>
 
+    <?php get_template_part('template-parts/excerpt-loop'); ?>
+
+    <!-- Get a litle square of software projects -->
     <?php $postType = 'softwareproject'; $title = 'My Recent Software Projects'; ?>
     <?php include(locate_template('template-parts/small-cards.php')) ?>
 

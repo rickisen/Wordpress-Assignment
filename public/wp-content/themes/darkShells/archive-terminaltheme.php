@@ -20,17 +20,8 @@ get_header(); ?>
   <?php get_sidebar() ?>
 
   <div class="middle">
-
-    <div class="posts">
-      <h2> Terminal Themes</h2>
-      <p>Here is a collection of some of my favourite terminal color themes, They can 
-        be for a specific terminal or code highlighting or even for sepperate CLI's </p>
-      <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-        <?php get_template_part('template-parts/excerpts') ?>
-      <?php endwhile; else : ?>
-        <p><?php _e( 'Nothing to see here... Move along' ); ?></p>
-      <?php endif; ?>
-    </div>
+    
+    <?php get_template_part('template-parts/excerpt-loop'); ?>
 
     <!-- needs to do like this, otherwise variable scope is lost-->
     <?php $postType = 'softwareproject'; $title = 'My Recent Software Projects'; ?>
