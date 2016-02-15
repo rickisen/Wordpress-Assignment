@@ -13,9 +13,8 @@
       <a href="<?php echo $ghlink ;?>">Github Repo</a> <br>
     <?php endif; ?>
 
-    <?php if ( $screenshot = get_post_meta($post->ID, '_screenshot', true)): ?>
-      <img class="screenshot" src="<?php echo $screenshot ;?>"> <br>
-    <?php endif; ?>
+    <?php get_template_part('template-parts/screenshot') ?>
+
   </div>
 </div>
 

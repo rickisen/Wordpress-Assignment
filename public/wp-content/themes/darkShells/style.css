@@ -205,7 +205,23 @@ input {
   margin-bottom:1em;
 }
 
+.screenshot-frame {    
+  text-align: center;  
+  font: 0/0 a;        
+}
+
+.screenshot-frame:before {    
+  content: ' ';
+  display: inline-block;
+  vertical-align: middle;  
+  height: 100%;
+}
+
 .screenshot {
+  display: inline-block;
+  vertical-align: middle;  
+  font: 16px/1 Arial sans-serif;        
+
   border:1px solid grey;
   max-width: 98%;
   min-width: 25%;

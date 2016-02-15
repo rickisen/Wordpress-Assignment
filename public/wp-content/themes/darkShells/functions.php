@@ -31,15 +31,6 @@ function register_header_nav_menu() {
 }
 add_action( 'init', 'register_header_nav_menu' );
 
-/* // Show CPT on home page */
-/* function add_my_post_types_to_query( $query ) { */
-/*   if ( is_home() && $query->is_main_query() ){ */
-/*     $query->set( 'post_type', array( 'post', 'softwareProject', 'terminaltheme', 'CliReview' ) ); */
-/*   } */
-/*   return $query; */
-/* } */
-/* add_action( 'pre_get_posts', 'add_my_post_types_to_query' ); */
-
 // Custom Post Types  ================================================================================
 
 // post type for software projects hosted on github
@@ -198,7 +189,7 @@ add_action('init', 'create_tech_taxonomy');
 
 // metaboxes -----------------------------
 
-// Softwareprojects ----------
+// Softwareprojects 
 function add_sp_metaboxes(){
   add_meta_box('sp-metabox', 'Softwareproject Metadata', 
     'sp_callback', 'softwareproject',
@@ -283,7 +274,7 @@ function save_softwareprojectmeta($post_id, $post){
 }
 add_action('save_post', 'save_softwareprojectmeta', 1, 2);
 
-// Terminalthemes ----------
+// Terminalthemes 
 function add_tt_metaboxes(){
   add_meta_box('tt-metabox', 'Terminal Theme Metadata', 
     'tt_callback', 'terminaltheme',
@@ -359,7 +350,7 @@ function save_terminalthememeta($post_id, $post){
 }
 add_action('save_post', 'save_terminalthememeta', 1, 2);
 
-// CliReviews ----------
+// CliReviews 
 function add_cr_metaboxes(){
   add_meta_box('cr-metabox', 'Cli Review Metadata', 
     'cr_callback', 'clireview',
@@ -444,6 +435,18 @@ function customize_colors_register( $wp_customize ){
   $wp_customize->add_section('show-hide', ['title' => "Show/Hide parts of the theme", 'priority' => 10]);
 
 
+  // change background image
+  $wp_customize->add_setting('background-img', ['default' => 'http://put.nu/files/okXkft9.jpg', 'transport' => 'refresh']);
+  $wp_customize->add_control(
+      new WP_Customize_Control($wp_customize, 'background-img', [
+          'label' => "Change the Background Image",
+          'section' => 'show-hide',
+          'setting' => 'background-img',
+          'type' => 'text',
+        ])
+    );
+
+  // show or hide arrows
   $wp_customize->add_setting('arrows', ['default' => true, 'transport' => 'refresh']);
   $wp_customize->add_control(
       new WP_Customize_Control($wp_customize, 'arrows', [
@@ -474,7 +477,9 @@ add_action('customize_register','customize_colors_register');
 function darkshells_cutomize_css(){
   ?>
     <style type="text/css">
+
        body { 
+        background-image:url(<?php echo get_theme_mod('background-img'); ?>);
         background-color:<?php echo get_theme_mod('background'); ?> ; 
         color:<?php echo get_theme_mod('font_color'); ?> ; 
       }
