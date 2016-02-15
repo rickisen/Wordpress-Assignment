@@ -20,6 +20,8 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 
+define('WP_CACHE', true); //Added by WP-Cache Manager
+define( 'WPCACHEHOME', '/var/www/public/wp-content/plugins/wp-super-cache/' ); //Added by WP-Cache Manager
 $config = parse_ini_file('mysqliConfig.ini');
 
 /** The name of the database for WordPress */
