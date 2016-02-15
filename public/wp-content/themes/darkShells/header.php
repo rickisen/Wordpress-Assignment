@@ -20,11 +20,12 @@
       </a>
     </div>
 
-      <div class="float-right"> <?php dynamic_sidebar( 'header-widgets' ); ?> </div>
+    <div class="header-widget-area float-right"> <?php dynamic_sidebar( 'header-widgets' ); ?> </div>
 
-      <div class="horizontal-list float-right ">
-        <?php wp_nav_menu( array( 'theme_location' => 'header-menu', 'container_class' => 'header-nav-menu' ) ); ?>
-      </div>
+    <div class="horizontal-list float-right ">
+      <?php wp_nav_menu( array( 'theme_location' => 'header-menu', 'container_class' => 'header-nav-menu' ) ); ?>
+    </div>
+
     <div class="clear"></div>
 
   </div>

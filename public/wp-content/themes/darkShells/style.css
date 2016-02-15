@@ -91,15 +91,10 @@ a:hover, a:hover *, a:active, a:active *, a:focus, a:focus *{
   color:#222;
 }
 
-/*
-a p, p a, ul li a{ 
-  text-decoration: underline; 
-}
-*/
-
 hr {
   border:none;
-  border-top:1px solid #f1a94e;
+  border-top:1px solid grey;
+  margin-bottom: 1em;
 }
 
 p {
@@ -113,11 +108,25 @@ h1 {
 
 input {
   background-color: transparent;
-  border:none;
-  border-bottom:1px solid #444;
-  height:1.2em;
+  font-family: 'Source Code Pro';
+  font-size:16px;
+  border-radius: 0;
+  margin-left:1em;
+
+  position: relative;
+  bottom:0.1em;
 }
 
+input[type="submit"] {
+  border:none;
+  margin:0;
+}
+
+input[type="text"] {
+  border:none;
+  border-bottom:1px solid grey;
+  width: 7em;
+}
 
 /* misq classes ----------*/
 .float-right{
@@ -155,6 +164,19 @@ input {
 
 .header .home {
   display:inline-block;
+}
+
+.header label {
+  display:none;
+}
+
+.header-widget-area * {
+  max-height: 1.2em;
+}
+
+.header-widget-area {
+  vertical-align: middle;
+  height: 1.2em;
 }
 
 .flex-container {

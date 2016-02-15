@@ -1,5 +1,4 @@
 <?php 
-
 // Visuals and content ================================================================================
 
 // load the CSS into wp
@@ -25,7 +24,7 @@ function add_widget_areas(){
 }
 add_action('widgets_init','add_widget_areas');
 
-//register main nav
+//register main nav menu
 function register_header_nav_menu() {
   register_nav_menu('header-menu',__( 'Header Menu' ));
 }
@@ -233,6 +232,10 @@ function sp_callback(){
 }
 
 function save_softwareprojectmeta($post_id, $post){
+  if (!isset($_POST['softwareprojectmeta_noncename'])){
+    return $post->ID;
+  }
+
   // verify this is the right call we're handling
   if (!wp_verify_nonce($_POST['softwareprojectmeta_noncename'], plugin_basename(__FILE__) )){
     return $post->ID;
@@ -310,6 +313,10 @@ function tt_callback(){
 }
 
 function save_terminalthememeta($post_id, $post){
+  if (!isset($_POST['terminaltheme_noncename'])){
+    return $post->ID;
+  }
+
   // verify this is the right call we're handling
   if (!wp_verify_nonce($_POST['terminaltheme_noncename'], plugin_basename(__FILE__) )){
     return $post->ID;
@@ -379,6 +386,10 @@ function cr_callback(){
 }
 
 function save_clireviewmeta($post_id, $post){
+  if (!isset($_POST['clireview_noncename'])){
+    return $post->ID;
+  }
+
   // verify this is the right call we're handling
   if (!wp_verify_nonce($_POST['clireview_noncename'], plugin_basename(__FILE__) )){
     return $post->ID;

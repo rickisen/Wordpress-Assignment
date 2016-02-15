@@ -21,6 +21,12 @@ get_header(); ?>
       }
     ?>
 
+    <!-- needs to do like this, otherwise variable scope is lost-->
+    <?php $postType = 'terminaltheme'; $title = 'Recent Terminal Themes'; ?>
+    <?php include(locate_template('template-parts/small-cards.php')) ?>
+    <?php $postType = 'clireview'; $title = 'Recent Reviews of CLI-apps'; ?>
+    <?php include(locate_template('template-parts/small-cards.php')) ?>
+
   </div>
 </div>
 <?php get_footer(); ?>
