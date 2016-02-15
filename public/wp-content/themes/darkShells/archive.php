@@ -23,6 +23,7 @@ get_header(); ?>
 
     <?php get_template_part('template-parts/excerpt-loop'); ?>
 
+    <!-- Include small cards (puffar) leading to another section of the site-->
     <!-- needs to do like this, otherwise variable scope is lost-->
     <?php $postType = 'softwareproject'; $title = 'Recent Software Projects'; ?>
     <?php include(locate_template('template-parts/small-cards.php')) ?>

@@ -118,6 +118,7 @@ add_action('init','post_type_CliReview_init');
 
 // Taxonomies ------------------------------------------------------------
 
+//for TerminalThemes 
 function add_color_taxonomy() {
     $args = [
     'name' => 'Colors',
@@ -131,6 +132,8 @@ function add_color_taxonomy() {
 add_action( 'init', 'add_color_taxonomy');
 
 // Terminal-Taxonomy, used for TerminalThemes 
+// to describe wich terminal or 
+// application the theme is made for
 function create_terminal_taxonomy(){
    register_taxonomy(
     'terminal',
@@ -158,7 +161,8 @@ function create_programtype_taxonomy(){
 }
 add_action('init', 'create_programtype_taxonomy');
 
-// Recomendation-Taxonomy, used for CliReview and TerminalTheme
+// Recomendation-Taxonomy, used for both CliReview and TerminalTheme
+// could be something like "good", "bad", "great"
 function create_recommendation_taxonomy(){
    register_taxonomy(
     'recomendation',
@@ -172,7 +176,7 @@ function create_recommendation_taxonomy(){
 }
 add_action('init', 'create_recommendation_taxonomy');
 
-// taxonomy for softwareProjects 
+// tech taxonomy for softwareProjects 
 function create_tech_taxonomy(){
    register_taxonomy(
     'tech',
@@ -188,7 +192,8 @@ add_action('init', 'create_tech_taxonomy');
 
 // metaboxes -----------------------------
 
-// Softwareprojects 
+// add meta boces in the admin panel for Software projects 
+// sp = Software project
 function add_sp_metaboxes(){
   add_meta_box('sp-metabox', 'Softwareproject Metadata', 
     'sp_callback', 'softwareproject',
@@ -247,7 +252,7 @@ function save_softwareprojectmeta($post_id, $post){
   }
 
   $events_meta['_ghlink']     = $_POST['_ghlink'];
-  $events_meta['_link']     = $_POST['_link'];
+  $events_meta['_link']       = $_POST['_link'];
   $events_meta['_screenshot'] = $_POST['_screenshot'];
   
   foreach($events_meta as $key => $value){
@@ -443,8 +448,7 @@ add_filter('widget_posts_args', 'widget_posts_args_add_custom_type');
 
 function customize_colors_register( $wp_customize ){
   $wp_customize->add_section('colors', ['title' => "Theme colors", 'priority' => 10]);
-  $wp_customize->add_section('show-hide', ['title' => "Show/Hide parts of the theme", 'priority' => 10]);
-
+  $wp_customize->add_section('show-hide', ['title' => "Show/Hide/Add parts of the theme", 'priority' => 10]);
 
   // change background image
   $wp_customize->add_setting('background-img', ['default' => 'http://put.nu/files/okXkft9.jpg', 'transport' => 'refresh']);
@@ -485,11 +489,13 @@ function customize_colors_register( $wp_customize ){
 }
 add_action('customize_register','customize_colors_register');
 
+// generate the style tag to overide default styles, 
+// should be rewritten to only output the relevant sections
 function darkshells_cutomize_css(){
   ?>
     <style type="text/css">
 
-       body { 
+      body { 
         background-image:url(<?php echo get_theme_mod('background-img'); ?>);
         background-color:<?php echo get_theme_mod('background'); ?> ; 
         color:<?php echo get_theme_mod('font_color'); ?> ; 
@@ -499,21 +505,21 @@ function darkshells_cutomize_css(){
         background-color:<?php echo get_theme_mod('background'); ?> ; 
       }
 
+      .arrows{display:<?php echo get_theme_mod('arrows') ? 'flex' : 'none'; ?>;}
+
       h1 {color:<?php echo get_theme_mod('h1');?>}
       h2 {color:<?php echo get_theme_mod('h2');?>}
       h3 {color:<?php echo get_theme_mod('h3');?>}
       h4 {color:<?php echo get_theme_mod('h4');?>}
       h4 {color:<?php echo get_theme_mod('h5');?>}
 
-      .arrows{display:<?php echo get_theme_mod('arrows') ? 'flex' : 'none'; ?>;}
-
-      .arrows .leftside-arrows .arrow:nth-child(1) { background-color: <?php echo get_theme_mod('h2');?>; } 
-      .arrows .leftside-arrows .arrow:nth-child(1):after { border-left-color: <?php echo get_theme_mod('h2');?>; } 
-      .arrows .leftside-arrows .arrow:nth-child(2) { background-color: <?php echo get_theme_mod('h3');?>; }
-      .arrows .leftside-arrows .arrow:nth-child(2):after { border-left-color:<?php echo get_theme_mod('h3');?>; } 
-      .arrows .rightside-arrows .arrow:nth-child(1){ background-color: <?php echo get_theme_mod('h4');?>; }
+      .arrows .leftside-arrows .arrow:nth-child(1)         { background-color:  <?php echo get_theme_mod('h2');?>; } 
+      .arrows .leftside-arrows .arrow:nth-child(1):after   { border-left-color: <?php echo get_theme_mod('h2');?>; } 
+      .arrows .leftside-arrows .arrow:nth-child(2)         { background-color:  <?php echo get_theme_mod('h3');?>; }
+      .arrows .leftside-arrows .arrow:nth-child(2):after   { border-left-color: <?php echo get_theme_mod('h3');?>; } 
+      .arrows .rightside-arrows .arrow:nth-child(1)        { background-color:  <?php echo get_theme_mod('h4');?>; }
       .arrows .rightside-arrows .arrow:nth-child(1):before { border-right-color:<?php echo get_theme_mod('h4');?>; } 
-      .arrows .rightside-arrows .arrow:nth-child(2){ background-color: <?php echo get_theme_mod('h1');?>; } 
+      .arrows .rightside-arrows .arrow:nth-child(2)        { background-color:  <?php echo get_theme_mod('h1');?>; } 
       .arrows .rightside-arrows .arrow:nth-child(2):before { border-right-color:<?php echo get_theme_mod('h1');?>; } 
 
     </style>

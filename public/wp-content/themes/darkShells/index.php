@@ -12,21 +12,16 @@
  * @package WordPress
  * @subpackage Twenty_Sixteen
  * @since Twenty Sixteen 1.0
- */
-
+ */ 
 get_header(); ?>
 
 <div class="content flex-container">
 
   <?php get_sidebar() ?>
 
-  <div class="middle">
-
-    <?php get_template_part('template-parts/excerpt-loop'); ?>
-
+  <div class="middle"> 
+    <?php get_template_part('template-parts/excerpt-loop'); ?> 
   </div>
-</div>
 
-<?php get_footer(); ?>
-
-
+</div> 
+<?php get_footer(); ?> 

@@ -16,7 +16,7 @@
           </span>
         </div>
       </div>
-    </div> <!-- end of wrapper -->
+    </div> <!-- end of "main" wrapper -->
 
     <!-- adds a hidden footer area if admin wants one -->
     <?php if (is_active_sidebar('sidebar-hidden')) : ?>

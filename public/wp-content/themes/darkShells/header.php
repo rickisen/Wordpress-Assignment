@@ -11,7 +11,12 @@
 	<?php wp_head(); ?>
 </head>
 <body>
+
+<!-- open the main wrapper, will be closed later in footer, 
+   the document might contain one more wrapper div
+   if the hidden footer widget area is in use -->
 <div class="wrapper window-colors">
+
   <div class="header">
 
     <div class="home">
@@ -20,7 +25,9 @@
       </a>
     </div>
 
-    <div class="header-widget-area float-right"> <?php dynamic_sidebar( 'header-widgets' ); ?> </div>
+    <div class="header-widget-area float-right"> 
+      <?php dynamic_sidebar( 'header-widgets' ); ?> 
+    </div>
 
     <div class="horizontal-list float-right ">
       <?php wp_nav_menu( array( 'theme_location' => 'header-menu', 'container_class' => 'header-nav-menu' ) ); ?>
