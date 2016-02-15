@@ -1,2 +1,5 @@
-<?php get_template_part('template-parts/sidebar-left') ?>
+<div class="sidebar left-sidebar">
+  <?php if (is_active_sidebar('sidebar-left')) : dynamic_sidebar('sidebar-left'); ?>
+  <?php endif ?>
+</div>
 
